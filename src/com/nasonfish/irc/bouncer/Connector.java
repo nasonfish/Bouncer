@@ -26,10 +26,11 @@ public class Connector implements Runnable {
 		while(true){
 			try {
 				//log = new PrintWriter(new FileWriter("~/.bouncerlog.txt", true));
-				sock = new Socket(opts.outAddress, opts.outPort);
+				sock = new Socket();
 				if(opts.bindHost != null){
 					sock.bind(new InetSocketAddress(opts.bindHost, 0));
 				}
+				sock.connect(new InetSocketAddress(opts.outAddress, opts.outPort));
 				out = new PrintWriter(sock.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 				write("NICK " + opts.nick);
