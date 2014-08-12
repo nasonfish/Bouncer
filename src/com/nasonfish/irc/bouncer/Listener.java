@@ -58,7 +58,9 @@ public class Listener implements Runnable {
 			return;  // just go away please
 		}
 		lastMessage = System.currentTimeMillis();
-		out.println(opts.connecter.buffer);
+		out.println(opts.getConnector().getBuffer());
+		out.println(opts.getConnector().getLogBack());
+		opts.getConnector().clearLogBack();
 		try{
 			Listener.users.add(this);
 			String line;
@@ -73,7 +75,7 @@ public class Listener implements Runnable {
 				} else if(line.substring(0, 4).equalsIgnoreCase("USER")){
 					// also who cares
 				} else {
-					opts.connecter.write(line);
+					opts.getConnector().write(line);
 				}
 			}
 		} catch(IOException e){

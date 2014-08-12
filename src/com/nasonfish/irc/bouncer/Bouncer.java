@@ -20,7 +20,7 @@ public class Bouncer {
 	
 	private ServerSocket ssocket;
 	
-	public Connecter connecter;
+	private Connector connector;
 	
 	public static void main(String[] args){
 		Bouncer b = new Bouncer();
@@ -54,8 +54,8 @@ public class Bouncer {
 				tmp_i += this.parseArg(args[i].substring(2), args[i+1]);
 			}
 		}
-		connecter = new Connecter(this);
-		new Thread(connecter).start();
+		connector = new Connector(this);
+		new Thread(connector).start();
 		new Timer().scheduleAtFixedRate(new Pinger(), 1000*60*3, 1000*60*3);
 		// listen for connections
 		try {
@@ -112,5 +112,9 @@ public class Bouncer {
 				System.out.println("Unrecognized flag: " + arg);
 				return 0;
 		}
+	}
+	
+	public Connector getConnector(){
+		return this.connector;
 	}
 }
