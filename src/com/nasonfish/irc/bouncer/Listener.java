@@ -28,7 +28,37 @@ public class Listener implements Runnable {
 	
 	@Override
 	public void run() {
+		try{
+			String line;
+			out.write(":irc.nasonfish.com 464 " + this.user + " :Password required");
+			out.write(":irc.nasonfish.com NOTICE AUTH :You need to send your password, via PASS <password_from_command_line>");
+			while((line = in.readLine()) != null){
+				lastMessage = System.currentTimeMillis();
+				if(line.substring(0, 4).startsWith("PASS")){
+					if(!line.substring(5).equals(opts.password)){
+						write(":irc.nasonfish.com 464 " + this.user + " :Invalid Password");
+						this.user.close();
+						return;
+					} else {
+						break;
+					}
+				} else if(line.substring(0, 4).equalsIgnoreCase("QUIT")) {
+					this.user.close();
+					return;
+				}
+			}
+		} catch(IOException e){
+			try {
+				if(!this.user.isClosed()){
+					this.user.close();
+					return;
+				}
+			} catch (IOException e1) {
+			}
+			return;  // just go away please
+		}
 		lastMessage = System.currentTimeMillis();
+		out.println(opts.connecter.buffer);
 		try{
 			Listener.users.add(this);
 			String line;
@@ -36,9 +66,12 @@ public class Listener implements Runnable {
 				lastMessage = System.currentTimeMillis();
 				if(line.startsWith("PONG ")){
 					// who cares
-				} else if(line.startsWith("QUIT ")) {
+				} else if(line.substring(0, 4).equalsIgnoreCase("QUIT")) {
 					Listener.users.remove(this);
 					this.user.close();
+					return;
+				} else if(line.substring(0, 4).equalsIgnoreCase("USER")){
+					// also who cares
 				} else {
 					opts.connecter.write(line);
 				}

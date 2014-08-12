@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.FileWriter;
 import java.net.Socket;
 import java.net.InetSocketAddress;
 
@@ -13,6 +12,7 @@ public class Connecter implements Runnable {
 	private Bouncer opts;
 	private PrintWriter out;
 	private BufferedReader in;
+	public String buffer = "";
 	
 	public Connecter(Bouncer opts){
 		this.opts = opts;
@@ -52,6 +52,7 @@ public class Connecter implements Runnable {
 						for(Listener l : Listener.users){
 							l.write(line);
 						}
+						buffer += line + "\n";
 						//log.println(line);
 					}
 				}

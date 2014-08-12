@@ -14,7 +14,7 @@ public class Pinger extends TimerTask {
 				} catch (IOException e) {}
 				Listener.users.remove(l);
 			} else {
-				l.write("PING :pls.respond");
+				l.write("PING :irc.nasonfish.com");
 			}
 		}
 	}
