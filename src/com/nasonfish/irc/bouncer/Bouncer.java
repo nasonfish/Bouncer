@@ -40,10 +40,10 @@ public class Bouncer {
 				System.out.println("\t-O, --oport <port>\t\tSpecify a port for the bouncer to connect to.");
 				System.out.println("\t-l, --laddr <address>\t\tSpecify an address for the bouncer to listen on.");
 				System.out.println("\t-L, --lport <port>\t\tSpecify a port for the bouncer to listen on.");
-				System.out.println("\t-b, --bind <port>\t\tSpecify an address for the bouncer to bind to.");
-				System.out.println("\t-P, --password <password>\t\tSpecify a password to require upon connection.");
+				System.out.println("\t-b, --bind <address>\t\tSpecify an address for the bouncer to bind to.");
+				System.out.println("\t-P, --password <password>\tSpecify a password to require upon connection.");
 				System.out.println("\t-n, --nick <password>\t\tSpecify a nick to use on the IRC network.");
-				System.out.println("\t--help\t\tDisplay help.");
+				System.out.println("\t--help\t\t\t\tDisplay help.");
 				System.exit(0);
 			}
 			if(!args[i].startsWith("--")){
