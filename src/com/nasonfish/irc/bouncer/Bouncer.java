@@ -33,7 +33,6 @@ public class Bouncer {
 			args = new String[]{"--help"}; // ugh, messy
 		}
 		for(int i = 0; i < args.length; i += 1 + tmp_i){
-			System.out.println(i);
 			tmp_i = 0;
 			if(args[i].equalsIgnoreCase("--help")){
 				System.out.println("nasonfish - Bouncer v0.1");
